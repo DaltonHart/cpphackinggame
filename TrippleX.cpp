@@ -2,19 +2,39 @@
 
 int main()
 {
-  std::cout << "You are a secret agent breaking into ta secure server room..." << std::endl;
+  // prints to the terminal the welcome messages
+  std::cout << "You are a secret agent breaking into ta secure server room...\n";
 
-  std::cout << "Enter the correct code to contine..." << std::endl;
+  std::cout << "Enter the correct code to contine...\n\n";
 
-  int a = 4;
-  int b = 5;
-  int c = 6;
+  // Declare 3 number code
+  const int CodeA = 4;
+  const int CodeB = 5;
+  const int CodeC = 6;
 
-  int sum = a + b + c;
-  int product = a * b * c;
+  const int CodeSum = CodeA + CodeB + CodeC;
+  const int CodeProduct = CodeA * CodeB * CodeC;
 
-  std::cout << sum << std::endl;
-  std::cout << product << std::endl;
+  // Print CodeSum and CodeProduct to the terminal
+  std::cout << "There are 3 numbers in the code\n";
+  std::cout << "\nThe codes add-up to: " << CodeSum;
+  std::cout << "\nThe codes multiply to give: " << CodeProduct;
+
+  // takes in player input and outputs said output
+  int GuessA, GuessB, GuessC;
+  std::cin >> GuessA >> GuessB >> GuessC;
+
+  const int GuessSum = GuessA + GuessB + GuessC;
+  const int GuessProduct = GuessA * GuessB * GuessC;
+
+  if (GuessSum == CodeSum && GuessProduct == CodeProduct)
+  {
+    std::cout << "\nYou Win!";
+  }
+  else
+  {
+    std::cout << "\nYou Lose!";
+  }
 
   return 0;
 }
