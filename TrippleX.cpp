@@ -1,24 +1,27 @@
 #include <iostream>
+#include <ctime>
 
-void PrintIntro()
+void PrintIntro(int Difficulty)
 {
-  std::cout << ".OOOOOOOOOOOOOOO @@                                   @@ OOOOOOOOOOOOOOOO.\nOOOOOOOOOOOOOOOO @ @ @ @OOOOOOOOOOOOOOOO\nOOOOOOOOOO'''''' @ @                                    @ @ ```````OOOOOOOOO\nOOOOO'' aaa @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @\"\"\"                   \"\"\"\"\"\"\"\"\"@@aaaa `OOOO\nOOOOO,\"\"\"\"@@@@@@@@@@@@@@\"\"\"\"                                     a@\"\" OOOA\nOOOOOOOOOoooooo,| OOoooooOOOOOS\nOOOOOOOOOOOOOOOOo,| OOOOOOOOOOOOC\nOOOOOOOOOOOOOOOOOO,| OOOOOOOOOOOOI\nOOOOOOOOOOOOOOOOOO @ | OOOOOOOOOOOOOI\nOOOOOOOOOOOOOOOOO '@                                        OOOOOOOOOOOOOOb\nOOOOOOOOOOOOOOO ' a '      | OOOOOOOOOOOOOy\nOOOOOOOOOOOOOO' '       aa`OOOOOOOOOOOP\n OOOOOOOOOOOOOOb, ..                                          `@aa``OOOOOOOh\n OOOOOOOOOOOOOOOOOOo                                           `@ @ @aa OOOOo\n OOOOOOOOOOOOOOOOOOO | @ @ @OOOOe\n OOOOOOOOOOOOOOOOOOO @aaaaaaa @ @',OOOOn\n OOOOOOOOOOOOOOOOOOO @aaa @ @ @ @ @ @ @ @\"\" @ @OOOOOi\n OOOOOOOOOO ~~aaaaaa\"a                 aaa@@@@@@@@@@\"\"            @@ OOOOOx\nOOOOOO aaaa @\"\"\"\"\"\"\"\" \"\"            @@@@@@@@@@@@\"\"               @@@|`OOOO'\nOOOOOOOo`@ @a aa @ @ @ @ @ @ @ @ @\"\"         a@        @@@@ OOOO9\nOOOOOOO'  `@@a               @@a@@   @@\"\"           a@@   a     |@@@ OOOO3\n`OOOO '       `@    aa@@       aaa\"\"\"          @a        a@     a@@@',OOOO\'\n";
+  std::cout << Difficulty;
+
+  std::cout << "\n\n.OOOOOOOOOOOOOOO @@                                   @@ OOOOOOOOOOOOOOOO.\nOOOOOOOOOOOOOOOO @ @ @ @OOOOOOOOOOOOOOOO\nOOOOOOOOOO'''''' @ @                                    @ @ ```````OOOOOOOOO\nOOOOO'' aaa @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @\"\"\"                   \"\"\"\"\"\"\"\"\"@@aaaa `OOOO\nOOOOO,\"\"\"\"@@@@@@@@@@@@@@\"\"\"\"                                     a@\"\" OOOA\nOOOOOOOOOoooooo,| OOoooooOOOOOS\nOOOOOOOOOOOOOOOOo,| OOOOOOOOOOOOC\nOOOOOOOOOOOOOOOOOO,| OOOOOOOOOOOOI\nOOOOOOOOOOOOOOOOOO @ | OOOOOOOOOOOOOI\nOOOOOOOOOOOOOOOOO '@                                        OOOOOOOOOOOOOOb\nOOOOOOOOOOOOOOO ' a '      | OOOOOOOOOOOOOy\nOOOOOOOOOOOOOO' '       aa`OOOOOOOOOOOP\n OOOOOOOOOOOOOOb, ..                                          `@aa``OOOOOOOh\n OOOOOOOOOOOOOOOOOOo                                           `@ @ @aa OOOOo\n OOOOOOOOOOOOOOOOOOO | @ @ @OOOOe\n OOOOOOOOOOOOOOOOOOO @aaaaaaa @ @',OOOOn\n OOOOOOOOOOOOOOOOOOO @aaa @ @ @ @ @ @ @ @\"\" @ @OOOOOi\n OOOOOOOOOO ~~aaaaaa\"a                 aaa@@@@@@@@@@\"\"            @@ OOOOOx\nOOOOOO aaaa @\"\"\"\"\"\"\"\" \"\"            @@@@@@@@@@@@\"\"               @@@|`OOOO'\nOOOOOOOo`@ @a aa @ @ @ @ @ @ @ @ @\"\"         a@        @@@@ OOOO9\nOOOOOOO'  `@@a               @@a@@   @@\"\"           a@@   a     |@@@ OOOO3\n`OOOO '       `@    aa@@       aaa\"\"\"          @a        a@     a@@@',OOOO\'\n\n";
 
   // prints to the terminal the welcome messages
   std::cout
-      << "You are a secret agent breaking into ta secure server room...\n";
+      << "You are a secret agent breaking into a level " << Difficulty;
 
-  std::cout << "Enter the correct code to contine...\n\n";
+  std::cout << " secure server room...\nEnter the correct code to contine...\n\n";
 }
 
-void PlayGame()
+bool PlayGame(int Difficulty)
 {
-  PrintIntro();
+  PrintIntro(Difficulty);
 
   // Declare 3 number code
-  const int CodeA = 4;
-  const int CodeB = 5;
-  const int CodeC = 6;
+  const int CodeA = rand() % Difficulty + Difficulty;
+  const int CodeB = rand() % Difficulty + Difficulty;
+  const int CodeC = rand() % Difficulty + Difficulty;
 
   const int CodeSum = CodeA + CodeB + CodeC;
   const int CodeProduct = CodeA * CodeB * CodeC;
@@ -38,15 +41,34 @@ void PlayGame()
   if (GuessSum == CodeSum && GuessProduct == CodeProduct)
   {
     std::cout << "\nYou Win!";
+    return true;
   }
   else
   {
     std::cout << "\nYou Lose!";
+    return false;
   }
 }
 
 int main()
 {
-  PlayGame();
+  srand(time(NULL)); // create new random seed based on time
+
+  int LevelDifficulty = 1;
+  int const MaxDifficulty = 5;
+
+  while (LevelDifficulty <= MaxDifficulty)
+  {
+    bool bLevelComplete = PlayGame(LevelDifficulty);
+    std::cin.clear();
+    std::cin.ignore();
+
+    if (bLevelComplete)
+    {
+      // increase level difficulty
+      ++LevelDifficulty;
+    }
+  }
+
   return 0;
 }
